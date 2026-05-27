@@ -97,3 +97,27 @@ In practice: $k=20$ is standard for RSA key generation.
 | Miller-Rabin | $O(k \cdot log^3(n))$ | $k=5$, small $n$ | $k=20$, large $n$ | 
 
 For numbers $>32$ bits, Miller-Rabin is 100-500x faster.
+
+## How the program works
+
+### 1. Known values check
+
+Tests the Miller-Rabin algorithm against a set of known primes (2, 3, 5, 7, 11, 97, 104729, 15485863) and known composites (4, 9, 15, 100, 561, 1729) to verify correctness.
+
+**Output**: A list showing whether each number is correctly identified as prime or composite
+
+### 2. Monte Carlo: Generate random primes
+
+Shows the `find_prime_number()` function by generating random probable primes of different bit lengths (8-bit, 16-bit, 32-bit). The function repeatedly generates random odd numbers until Miller-Rabin confirms one is probably prime.
+
+### 3. Empirical error rate
+
+Tests the theroetical erro bound ($4^{-k}$) in practice by running the Miller-Rabin test 100 times on each known Carmichael number (561, 1105, 1729, etc.) for various values of $k$.
+
+**Output**: A table showing the actual error rate versus the theoretical bound for $k = 5, 10, 15, 20$, confirming the algorithm's reliability.
+
+### 4. Benchmark: Miller-Rabin vs Trial division
+
+Compares the execution speed of Miller-Rabin ($O(k \ log^3 n)$) versus the classical Trial division ($O(\sqrt{n})$) on three large primes (104729, 1299709, 15485863).
+
+**Output**: A timing table showing microsecconds per 100 test runs and the speedup factor
